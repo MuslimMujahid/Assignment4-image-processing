@@ -1,6 +1,6 @@
 function PlatNumberRecognition()
     % load image
-    f = imread('images/plat_numbers/car3.jpg');
+    f = imread('images/plat_numbers/sshz2.jpg');
     
     % keep images the same size
     f = imresize(f, [400 NaN]);
@@ -10,7 +10,7 @@ function PlatNumberRecognition()
     % apply median filter
     g = medfilt2(g, [3 3]);
     
-     % find edges by subtracting result of
+    % find edges by subtracting result of
     % dilate and erode
     se = strel('disk', 1);
     gd = imdilate(g, se);
@@ -43,6 +43,7 @@ function PlatNumberRecognition()
     % Get characters bounding box
     BBs = GetCharactersRect(final);
     
+    % Matching each object with template letters
     chars = ['A' 'B' 'C' 'D' 'E' 'F' 'G' 'H' 'I' 'J' 'K' 'L' 'M' 'N' 'O' 'P' 'Q' 'R' 'S' 'T' 'U' 'V' 'W' 'X' 'Y' 'Z' '1' '2' '3' '4' '5' '6' '7' '8' '9' '0'];
     plat_numbers = '';
     for k = 1 : size(BBs, 1)
@@ -61,7 +62,7 @@ function PlatNumberRecognition()
        plat_numbers = strcat(plat_numbers, letter);
     end
     
-    % displat plat number recognition result
+    % displat play number recognition result
     disp(plat_numbers);
     
     % draw bounding box
