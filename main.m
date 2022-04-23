@@ -4,7 +4,7 @@ characters_dir = 'images/characters';
 char_found_width = 70;
 
 % load image
-I = imread('images/plat3.jpg');
+I = imread('images/plat5.jpg');
 G = rgb2gray(I);
 B = imbinarize(G);
 
@@ -40,10 +40,12 @@ clearDir(characters_found_dir);
 
 % characters detection
 info = regionprops(Brccf,'Boundingbox') ;
+imshow(Brccf);
+hold on
 for k = 1 : length(info)
      BB = info(k).BoundingBox;
      character = imclearborder(imcrop(Brccf, [BB(1)-(char_found_width-BB(3))/2,BB(2)-(char_found_width-BB(4))/2,char_found_width,char_found_width]));
-%      rectangle('Position', [BB(1)-(char_found_width-BB(3))/2,BB(2)-(char_found_width-BB(4))/2,char_found_width,char_found_width],'EdgeColor','r','LineWidth',2) ;
+     rectangle('Position', [BB(1)-(char_found_width-BB(3))/2,BB(2)-(char_found_width-BB(4))/2,char_found_width,char_found_width],'EdgeColor','r','LineWidth',2) ;
      imwrite(imresize(character, [50 50]), strcat(characters_found_dir, '/char', num2str(k,'%d'), '.jpg'));
 end
 
